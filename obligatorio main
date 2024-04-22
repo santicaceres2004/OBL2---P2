@@ -1,0 +1,38 @@
+package com.mycompany.obligatorio;
+
+import java.util.Scanner;
+
+public class Obligatorio {
+    private static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        mostrarMenu();
+        int contador = 0;
+        while (contador < 2) {
+            System.out.println("Ingrese el nombre del jugador:");
+            String nombre = scanner.nextLine();
+            System.out.println("Ingrese la edad del jugador:");
+            int edad = Integer.parseInt(scanner.nextLine());
+            System.out.println("Ingrese el alias del jugador:");
+            String alias = scanner.nextLine();
+            
+            if (Jugadores.registrarJugador(nombre, edad, alias)) {
+                System.out.println("Jugador registrado exitosamente.");
+                contador++;
+            } else {
+                System.out.println("El alias ya está en uso. Intente con otro.");
+            }
+        }
+        contador = 0;   
+    }
+
+    private static void mostrarMenu() {
+        System.out.println("Bienvenido a Autitos Chocadores");
+        System.out.println("1. Registrar Jugador");
+        System.out.println("2. Configurar Tablero");
+        System.out.println("3. Iniciar Juego");
+        System.out.println("4. Ver Ranking");
+        System.out.println("5. Salir");
+        System.out.print("Elige una opción: ");
+    }
+}
