@@ -1,44 +1,44 @@
-package com.mycompany.obligatorio;
+package obligatorio_1;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class Jugadores {
-
-    private String nombre;
-    private int edad;
-    private String alias;
-
-    private static List<Jugadores> listaJugadores = new ArrayList<>();
-
-    public Jugadores(String nombre, int edad, String alias) {
-        this.nombre = nombre;
-        this.edad = edad;
-        this.alias = alias;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public int getEdad() {
-        return edad;
-    }
-
-    public String getAlias() {
-        return alias;
-    }
-
-    public static boolean registrarJugador(String nombre, int edad, String alias) {
-        for (int i = 0; i < listaJugadores.size(); i++) {
-            Jugadores j = listaJugadores.get(i);
-            if (j.getAlias().equals(alias)) {
-                return false;  
-                
+public class OBLIGATORIO_1 {
+    private static Scanner scanner = new Scanner(System.in);
+    
+    public static void main(String[] args) {
+        
+        mostrarMenu();
+        int contador = 0;
+        while (contador < 2) {
+            //Nombre
+            System.out.println("Ingrese el nombre del jugador[ " +(contador+1) + " ]:");
+            String nombre = Jugadores.obtenerNombreValido(scanner);
+            
+            //Edad
+            int edad = Jugadores.obtenerEdadValida(scanner);
+            
+            //Alias
+            System.out.println("Ingrese el alias del jugador:");
+            String alias = scanner.nextLine();
+            
+            if (Jugadores.registrarJugador(nombre, edad, alias)) {
+                System.out.println("Jugador registrado exitosamente.");
+                contador++;
+            } else {
+                System.out.println("El alias ya está en uso. Intente con otro.");
             }
         }
-        listaJugadores.add(new Jugadores(nombre, edad, alias));
-        return true;  
+        contador = 0;   
     }
 
+    private static void mostrarMenu() {
+        System.out.println("Bienvenido a Autitos Chocadores");
+        System.out.println("1. Registrar Jugador");
+        System.out.println("2. Configurar Tablero");
+        System.out.println("3. Iniciar Juego");
+        System.out.println("4. Ver Ranking");
+        System.out.println("5. Salir");
+        System.out.print("Elige una opcion: ");
+        scanner.nextLine();
+    }
 }
