@@ -1,18 +1,23 @@
 package com.mycompany.obligatorio;
 
-import java.util.Scanner;
+import java.util.*;
 
-public class Obligatorio {
+public class OBLIGATORIO_1 {
     private static Scanner scanner = new Scanner(System.in);
-
+    
     public static void main(String[] args) {
+        
         mostrarMenu();
         int contador = 0;
         while (contador < 2) {
-            System.out.println("Ingrese el nombre del jugador:");
-            String nombre = scanner.nextLine();
-            System.out.println("Ingrese la edad del jugador:");
-            int edad = Integer.parseInt(scanner.nextLine());
+            //Nombre
+            System.out.println("Ingrese el nombre del jugador[ " +(contador+1) + " ]:");
+            String nombre = Jugadores.obtenerNombreValido(scanner);
+            
+            //Edad
+            int edad = Jugadores.obtenerEdadValida(scanner);
+            
+            //Alias
             System.out.println("Ingrese el alias del jugador:");
             String alias = scanner.nextLine();
             
@@ -33,6 +38,7 @@ public class Obligatorio {
         System.out.println("3. Iniciar Juego");
         System.out.println("4. Ver Ranking");
         System.out.println("5. Salir");
-        System.out.print("Elige una opción: ");
+        System.out.print("Elige una opcion: ");
+        scanner.nextLine();
     }
 }
