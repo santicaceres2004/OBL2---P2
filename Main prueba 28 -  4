@@ -1,0 +1,122 @@
+import java.util.*;
+
+public class OBLIGATORIO_1 {
+
+    List<Jugadores> jugadores = Jugadores.listaJugadores;
+    private static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+
+        int opcion;
+        do {
+            mostrarMenu();
+            opcion = Integer.parseInt(scanner.nextLine());
+            boolean masJugadores = true;
+            if (opcion == 1) {
+                while (masJugadores) {
+                    //Nombre
+                    System.out.println("Ingrese el nombre del jugador:");
+                    String nombre = Jugadores.obtenerNombreValido(scanner);
+
+                    //Edad
+                    int edad = Jugadores.obtenerEdadValida(scanner);
+
+                    //Alias
+                    System.out.println("Ingrese el alias del jugador:");
+                    String alias = scanner.nextLine();
+
+                    if (Jugadores.registrarJugador(nombre, edad, alias)) {
+                        System.out.println("Jugador registrado exitosamente.");
+
+                    } else {
+                        System.out.println("El alias ya está en uso. Intente con otro.");
+                    }
+
+                    //Preguntar si quieren agregar otro jugador
+                    if (!Jugadores.verificarAgregarJugador(scanner)) {
+                        masJugadores = false;
+                    }
+
+                }
+            }
+
+            if (opcion == 2) { //Mostrar Tablero
+
+                Tablero.menuTablero();
+                int opcionTablero = Integer.parseInt(scanner.nextLine());
+                if (opcionTablero == 1) {
+                    System.out.println("*** TABLERO AL AZAR ***");
+                    System.out.println("Ingrese el tamaño del tablero (un número entre 5 y 7):");
+                    int tamaño = scanner.nextInt();
+                    Tablero tablero = new Tablero(tamaño);
+                    tablero.crearTablero(tamaño); //metodo en tablero
+
+                    System.out.println("Ingrese la cantidad de autos a jugar (numero entre 3 y 12)):");
+                    int cantAutos = scanner.nextInt();
+                    //Tablero.autosEnTableroAzar(cantAutos
+                    // Se colocan autos en modo random
+                    for (int i = 0; i < cantAutos; i++) {
+ 
+                    char filaRandom = Auto.direccionAleatoria(); //tiene que ser +1 del numero max
+                    int columnaRandom = (int) (Math.random() * 6);
+                    int direccionRandom = (int) (Math.random() * 5);
+                    Auto auto = new Auto (filaRandom, columnaRandom, direccionRandom);
+                    
+                }
+                }
+                if (opcionTablero == 2) {
+                    // Mismo codigo que antes... ver como optimizar
+                    System.out.println("*** TABLERO PROPIO ***");
+                    System.out.println("Ingrese el tamaño del tablero (un número entre 5 y 7):");
+                    int tamaño = scanner.nextInt();
+                    Tablero tablero = new Tablero(tamaño);
+                    tablero.crearTablero(tamaño); //metodo en tablero
+
+                    System.out.println("Ingrese la cantidad de autos a jugar (numero entre 3 y 12)):");
+                    int cantAutos = scanner.nextInt();
+                    //Tablero.autosEnTableroAzar(cantAutos
+                    // PEDIR PARA COLOCAR AUTOS
+                    
+                    //crear auto
+                    
+
+                }
+
+                if (opcionTablero == 3) {
+                    System.out.println("*** TABLERO PRE-DEFINIDO ***");
+                    Tablero tablero = new Tablero(5);
+                    tablero.crearTablero(5);
+                    tablero.autosEnTableroAzar(8);
+                }
+            }
+
+            if (opcion == 3) {
+
+            }
+
+            if (opcion == 4) {
+
+            }
+
+            if (opcion == 5) {
+                Jugadores.mostrarJugadores();
+            }
+
+        } while (opcion != 6);
+
+        if (opcion == 6) {
+
+        }
+    }
+
+    private static void mostrarMenu() {
+        System.out.println("Bienvenido a Autitos Chocadores");
+        System.out.println("1. Registrar Jugador");
+        System.out.println("2. Configurar Tablero");
+        System.out.println("3. Iniciar Juego");
+        System.out.println("4. Ver Ranking");
+        System.out.println("5. Mostrar jugadores ");
+        System.out.println("6. Salir");
+        System.out.print("Elige una opcion: ");
+    }
+}
