@@ -1,0 +1,81 @@
+import java.util.*;
+
+public class Tablero {
+       private int size;
+       private Auto[][] matriz;
+       private List<Auto> autos;
+
+
+public Tablero (int size) {
+    this.size = size;
+    this.matriz = new Auto[size][size];
+    this.autos = new ArrayList<>();
+}
+
+public static void menuTablero() {
+
+        System.out.println("Elije tu tablero");
+        System.out.println("1. Tablero al azar");
+        System.out.println("2. Tablero propio");
+        System.out.println("3. Tablero predefinido");
+
+    }
+
+public void autosEnTableroAzar (int cantidadAutos){
+    if (cantidadAutos < 3 || cantidadAutos > 12) {
+        System.out.println("La cantidad de autos debe ser entre 3 y 12");
+    } else {
+        // Ver si es tablero predefinido 5*5 / 6*6 / 7*7
+        // o random - usar Random para colocar autos 
+                
+    }
+}   
+
+    
+
+    public void crearTablero(int n) {
+        System.out.println("Tablero de tamaño " + n + "x" + n + ":");
+
+        // Numeros en columnas
+        System.out.print("    ");
+        for (int j = 1; j <= n; j++) {
+            System.out.print(j + "    ");
+        }
+        System.out.println();
+
+        // Imprimir tablero
+        for (int i = 0; i < n; i++) {
+            // contorno superior
+            System.out.print("  "); 
+            for (int j = 0; j < n; j++) {
+                System.out.print("+----");
+            }
+            System.out.println("+"); 
+
+            // Letra de fila
+            for (int k = 0; k < 4; k++) { // repite 4 veces la fila x celda
+            
+            char filaLetra = (char) ('A' + i);
+                        if (k == 0) {
+                System.out.print(filaLetra + " "); // imprime letra solo fila 1/4
+            } else {
+                System.out.print("  ");
+            }
+
+            // Espacios en matriz
+            for (int j = 0; j < n; j++) {
+                System.out.print("|    ");
+            }
+            System.out.println("|"); 
+        }
+            }
+
+        // Contorno inferior
+        System.out.print("  "); 
+        for (int j = 0; j < n; j++) {
+            System.out.print("+----");
+        }
+        System.out.println("+");
+    }
+
+}
