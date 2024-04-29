@@ -1,7 +1,6 @@
 package Dominio;
 
 import java.util.*;
-import Dominio.Tablero;
 
 public class Auto {
 
@@ -9,6 +8,11 @@ public class Auto {
     private int columna;
     private int direccion; // 0-Arriba / 1-Derecha / 2-Abajo / 3-Izquierda
     private String color;
+    private static List<Auto> listaDeAutos = new ArrayList<>();
+
+    public static List<Auto> getListaDeAutos() {
+        return listaDeAutos;
+    }
 
     //Constructor
     public Auto(char fila, int columna, int direccion) {
@@ -56,6 +60,35 @@ public class Auto {
         return colores[indice];
     }
 
+    public static Boolean registrarAuto(char fila, int columna, int direccion) {
+        listaDeAutos.add (new Auto (fila, columna, direccion));
+        return true;   
+    }
+    
+public static void mostrarAutos() {
+        if (listaDeAutos.isEmpty()) {
+            System.out.println("No hay autos registrados.");
+            return;
+        }
+
+        System.out.println("Lista de Autos:");
+        for (Auto auto : listaDeAutos) {
+            System.out.println("Auto en fila: " + auto.getFila() + ", columna: " + auto.getColumna() +
+                               ", dirección: " + auto.getDireccionString() + ", color: " + auto.getColor());
+        }
+    }
+
+// Método para obtener la dirección como string
+    private String getDireccionString() {
+        switch (direccion) {
+            case 0: return "Arriba";
+            case 1: return "Derecha";
+            case 2: return "Abajo";
+            case 3: return "Izquierda";
+            default: return "Desconocida";
+        }
+    }
+    
     public List<String> printAuto() {
         List<String> dibujo = new ArrayList<>();
         
@@ -88,16 +121,4 @@ public class Auto {
         return dibujo;
     }
 
-//    public String AutoAbajo() {
-//        for (int k = 0; k < 4; k++) {
-//            for (int columna = 0; columna < 2; columna++) {
-//                if (columna == 4) {
-//                    System.out.print(" OO ");
-//                }
-//                System.out.print(" ** ");
-//            }
-//            System.out.println();
-//        }
-//
-//    }
 }
