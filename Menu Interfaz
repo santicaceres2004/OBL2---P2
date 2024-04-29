@@ -1,0 +1,85 @@
+package Interfaz;
+
+import Dominio.Jugadores;
+import java.util.Scanner;
+import Dominio.Tablero;
+import Dominio.Auto;
+
+
+
+public class Menu {
+
+    private static Scanner scanner = new Scanner(System.in);
+
+    public void principalMenu() {
+        int opcion;
+        do {
+            mostrarMenu();
+            opcion = Integer.parseInt(scanner.nextLine());
+            if (opcion == 1) {
+                registrarJugador();
+
+            } else if (opcion == 2) {
+                configurarTablero();
+            }
+        } while (opcion != 5);
+    }
+
+    private static void mostrarMenu() {
+        System.out.println("Bienvenido a Autitos Chocadores");
+        System.out.println("1. Registrar Jugador");
+        System.out.println("2. Configurar Tablero");
+        System.out.println("3. Iniciar Juego");
+        System.out.println("4. Ver Ranking");
+        System.out.println("5. Salir");
+        System.out.println("6. mostrar jugadores");
+        System.out.print("Elige una opción: ");
+    }
+
+    private void configurarTablero() {
+        System.out.println("1. para jugar con tablero predefinido");
+        System.out.println("2. para jugar con tablero propio");
+        int seleccionTablero = Integer.parseInt(scanner.nextLine());
+        if (seleccionTablero == 1) {
+            int tamañoPredefinido = 5;
+            Tablero tablero = new Tablero(tamañoPredefinido);
+            TableroInterfaz tableroInterfaz = new TableroInterfaz();
+            tableroInterfaz.mostrarTablero(tablero);
+            
+            int cantAutos = 8;
+            Auto auto1 = new Auto ('A', 1,2);
+            Auto auto2 = new Auto ('A', 0,2);
+           
+            tablero.addAuto(auto1);
+            tablero.addAuto(auto2);
+            
+        } else if (seleccionTablero == 2) {
+            System.out.println("Ingrese el tamaño del tablero (un número entre 5 y 7):");
+            int tamaño = Integer.parseInt(scanner.nextLine());
+            if (tamaño >= 5 && tamaño <= 7) {
+                Tablero tablero = new Tablero(tamaño);
+                TableroInterfaz tableroInterfaz = new TableroInterfaz();
+                tableroInterfaz.mostrarTablero(tablero);
+            } else {
+                System.out.println("Tamaño inválido. El tamaño debe ser entre 5 y 7.");
+            }
+        } else {
+            System.out.println("Opción inválida.");
+        }
+    }
+
+    private void registrarJugador() {
+        System.out.println("Ingrese el nombre del jugador:");
+        String nombre = scanner.nextLine();
+        System.out.println("Ingrese la edad del jugador:");
+        int edad = Integer.parseInt(scanner.nextLine());
+        System.out.println("Ingrese el alias del jugador:");
+        String alias = scanner.nextLine();
+
+        if (Jugadores.registrarJugador(nombre, edad, alias)) {
+            System.out.println("Jugador registrado exitosamente.");
+        } else {
+            System.out.println("El alias ya está en uso. Intente con otro.");
+        }
+    }
+}
