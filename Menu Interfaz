@@ -1,11 +1,13 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Interfaz;
 
 import Dominio.Jugadores;
 import java.util.Scanner;
 import Dominio.Tablero;
 import Dominio.Auto;
-
-
 
 public class Menu {
 
@@ -36,37 +38,55 @@ public class Menu {
         System.out.print("Elige una opción: ");
     }
 
-    private void configurarTablero() {
-        System.out.println("1. para jugar con tablero predefinido");
-        System.out.println("2. para jugar con tablero propio");
-        int seleccionTablero = Integer.parseInt(scanner.nextLine());
-        if (seleccionTablero == 1) {
-            int tamañoPredefinido = 5;
-            Tablero tablero = new Tablero(tamañoPredefinido);
-            TableroInterfaz tableroInterfaz = new TableroInterfaz();
-            tableroInterfaz.mostrarTablero(tablero);
-            
-            int cantAutos = 8;
-            Auto auto1 = new Auto ('A', 1,2);
-            Auto auto2 = new Auto ('A', 0,2);
-           
-            tablero.addAuto(auto1);
-            tablero.addAuto(auto2);
-            
-        } else if (seleccionTablero == 2) {
-            System.out.println("Ingrese el tamaño del tablero (un número entre 5 y 7):");
-            int tamaño = Integer.parseInt(scanner.nextLine());
-            if (tamaño >= 5 && tamaño <= 7) {
-                Tablero tablero = new Tablero(tamaño);
-                TableroInterfaz tableroInterfaz = new TableroInterfaz();
-                tableroInterfaz.mostrarTablero(tablero);
-            } else {
-                System.out.println("Tamaño inválido. El tamaño debe ser entre 5 y 7.");
+private void configurarTablero() {
+      
+    System.out.println("Ingrese el tamaño del tablero (un número entre 5 y 7):");
+    int tamaño = Integer.parseInt(scanner.nextLine());
+    if (tamaño < 5 || tamaño > 7) {
+        System.out.println("Tamaño inválido. El tamaño debe ser entre 5 y 7.");
+        return;
+    }
+
+    System.out.println("Ingrese la cantidad de autos (entre 3 y 12):");
+    int cantAutos = Integer.parseInt(scanner.nextLine());
+    if (cantAutos < 3 || cantAutos > 12) {
+        System.out.println("Cantidad de autos inválida. Debe ser entre 3 y 12.");
+        return;
+    }
+
+    Tablero tablero = new Tablero(tamaño);
+    TableroInterfaz tableroInterfaz = new TableroInterfaz();
+
+    for (int i = 0; i < cantAutos; i++) {
+        boolean autoValido = false;
+        while (!autoValido) {
+            System.out.println("Ingrese fila (letra), columna (número) y dirección (0-Arriba, 1-Derecha, 2-Abajo, 3-Izquierda) para el auto " + (i + 1) + " (ejemplo A12):");
+            String input = scanner.nextLine();
+            if (input.length() < 3 || !Character.isLetter(input.charAt(0)) || !Character.isDigit(input.charAt(1)) || !Character.isDigit(input.charAt(2))) {
+                System.out.println("Entrada inválida, intente nuevamente.");
+                continue;
             }
-        } else {
-            System.out.println("Opción inválida.");
+
+            char fila = Character.toUpperCase(input.charAt(0));
+            int columna = Character.getNumericValue(input.charAt(1));
+            int direccion = Character.getNumericValue(input.charAt(2));
+            
+            if (fila < 'A' || fila >= 'A' + tamaño || columna < 1 || columna > tamaño || direccion < 0 || direccion > 3) {
+                System.out.println("Posición o dirección fuera de los límites, intente nuevamente.");
+                continue;
+            }
+
+            // Registrar el auto si las validaciones pasan
+            Auto.registrarAuto(fila, columna - 1, direccion);  // Ajustar la columna a índice base 0
+            autoValido = true;
+            Auto.mostrarAutos();
         }
     }
+
+    // Mostrar el tablero con los autos
+    tableroInterfaz.mostrarTablero(tablero);
+}
+
 
     private void registrarJugador() {
         System.out.println("Ingrese el nombre del jugador:");
