@@ -40,29 +40,46 @@ public class TableroInterfaz {
         System.out.println();
     }
 
-    private void imprimirCeldasFila(Tablero tablero, int fila) {
-        List<Auto> autos = tablero.getListaDeAutos(); 
-        for (int k = 0; k < 4; k++) {
+private void imprimirCeldasFila(Tablero tablero, int fila) {
+        List<Auto> autos = Auto.getListaDeAutos();
+
+        for (int k = 0; k < 4; k++) {  // Asumimos un máximo de 4 líneas por auto
             if (k == 0) {
                 System.out.print(letras[fila] + " ");
-
             } else {
                 System.out.print("  ");
             }
+
             for (int columna = 0; columna < tablero.getTamaño(); columna++) {
-                System.out.print("|");
                 Auto autoEnCelda = obtenerAutoEnCelda(autos, letras[fila], columna);
-                if (autoEnCelda != null) { 
+                if (autoEnCelda != null) {
                     List<String> autoVisual = autoEnCelda.printAuto();
-                    System.out.print(autoVisual.get(k));
+                    if (autoVisual.size() > k) {  // Verifica que haya suficiente contenido para imprimir
+                        System.out.print("|" + autoVisual.get(k));
+                    } else {
+                        System.out.print("|    "); // Rellena con espacios si no hay suficiente altura en la representación
+                    }
+                    // Ajusta la columna para el ancho del auto si es necesario
+                    if (autoEnCelda.getDireccion() == 1 || autoEnCelda.getDireccion() == 3) {
+                        columna++;  // Los autos horizontales ocupan dos columnas, avanzamos una extra
+                    }
                 } else {
-                    System.out.print("     "); // Espacio vacío si no hay auto
+                    System.out.print("|    "); // Espacio vacío si no hay auto
                 }
             }
             System.out.println("|");
         }
+        System.out.println();
     }
-    
+
+//Sugerencia Adicional
+//Validación de Jugadas Posibles: La validación actual no incluye la comprobación 
+//de si el tablero configurado permite al menos una jugada. Implementar esta 
+//lógica puede requerir una función adicional que evalúe el estado del tablero 
+//para determinar si hay jugadas posibles. Esta función podría analizar, 
+//por ejemplo, si hay suficiente espacio para que los autos se muevan 
+//en las direcciones indicadas sin salir del
+//    
     private Auto obtenerAutoEnCelda(List<Auto> autos, char fila, int columna) {
         for (Auto auto : autos) {
             if (auto.getFila() == fila && auto.getColumna() == columna) {
@@ -74,3 +91,4 @@ public class TableroInterfaz {
 
 
 }
+
