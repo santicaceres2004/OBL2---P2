@@ -1,0 +1,44 @@
+package Dominio;
+
+import java.util.*;
+
+public class Tablero {
+
+    private char[][] cuadricula;
+    private int tamaño;
+    private List<Auto> listaDeAutos;
+
+    public Tablero(int tamaño) {
+        this.tamaño = tamaño;
+        this.cuadricula = new char[tamaño][tamaño];
+        this.listaDeAutos = new ArrayList<>();
+    }
+
+    public void addAuto(Auto auto) {
+    listaDeAutos.add(auto);
+    }
+    
+    public List<Auto> getListaDeAutos() {
+        return listaDeAutos;
+    }
+    
+        public char getCelda(int fila, int columna) {
+        return cuadricula[fila][columna];
+    }
+
+    public int getTamaño() {
+        return tamaño;
+    }
+
+    public char[][] getCuadricula() {
+        return cuadricula;
+    }
+
+    /*private void inicializarTablero() {
+        for (int i = 0; i < tamaño; i++) {
+            for (int j = 0; j < tamaño; j++) {
+                cuadricula[i][j] = ' ';
+            }
+        }
+    }*/
+}
